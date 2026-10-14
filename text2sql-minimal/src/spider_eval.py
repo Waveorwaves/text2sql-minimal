@@ -20,7 +20,7 @@ from collections import Counter
 from dataclasses import dataclass, asdict
 from pathlib import Path
 from typing import Callable, Iterable
-
+from itertools import permutations
 # --------------------------------------------------------------------------- #
 # Data loading
 # --------------------------------------------------------------------------- #
@@ -137,12 +137,25 @@ def _norm_cell(v):
     return v
 
 
-def rows_match(gold_rows, pred_rows, order_matters: bool) -> bool:
+def rows_match(gold_rows, pred_rows, order_matters: bool, max_perm_cols: int = 6) -> bool:
     g = [tuple(_norm_cell(c) for c in r) for r in gold_rows]
     p = [tuple(_norm_cell(c) for c in r) for r in pred_rows]
-    if order_matters:
-        return g == p
-    return Counter(g) == Counter(p)
+    if len(g) != len(p):
+        return False
+    if not g:
+        return True
+    ncol = len(g[0])
+    if ncol != len(p[0]):
+        return False
+    eq = (lambda a, b: a == b) if order_matters else (lambda a, b: Counter(a) == Counter(b))
+    if eq(g, p):
+        return True
+    if ncol > max_perm_cols:
+        return False
+    for perm in permutations(range(ncol)):
+        if perm != tuple(range(ncol)) and eq(g, [tuple(r[i] for i in perm) for r in p]):
+            return True
+    return False
 
 
 # --------------------------------------------------------------------------- #
