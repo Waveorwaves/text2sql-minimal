@@ -1,0 +1,22 @@
+{
+  "n": 1034,
+  "n_valid": 1032,
+  "exec_acc": 0.5910852713178295,
+  "n_correct": 610,
+  "n_exec_error": 138,
+  "exec_error_rate": 0.13372093023255813,
+  "prompt_tokens_total": 390017,
+  "completion_tokens_total": 39847,
+  "prompt_tokens_per_ex": 377.1924564796905,
+  "completion_tokens_per_ex": 38.536750483559,
+  "mean_latency_s": 0.3129037620942874,
+  "wall_s": 334.48484325408936,
+  "model": "Qwen/Qwen3-1.7B",
+  "adapter": null,
+  "split": "dev",
+  "exec_acc_ci95": [
+    0.5589941972920697,
+    0.6199226305609284
+  ],
+  "device": "NVIDIA L4"
+}
