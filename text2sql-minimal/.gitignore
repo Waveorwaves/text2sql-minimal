@@ -1,0 +1,5 @@
+data/
+results/*.predictions.jsonl
+__pycache__/
+*.pyc
+.env
